@@ -2,4 +2,4 @@
 export { apolloClient } from './apolloClient';
 
 // Export generated types and hooks
-export * from './generated';
+// export * from './generated';
