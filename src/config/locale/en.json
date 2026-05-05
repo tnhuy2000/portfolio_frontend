@@ -1,0 +1,54 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "search": "Search",
+    "filter": "Filter",
+    "viewAll": "View All"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "team": "Team",
+    "projects": "Projects",
+    "blog": "Blog",
+    "contact": "Contact"
+  },
+  "home": {
+    "welcome": "Welcome",
+    "title": "Portfolio",
+    "subtitle": "Showcasing My Work"
+  },
+  "projects": {
+    "title": "Projects",
+    "viewProject": "View Project",
+    "technologies": "Technologies",
+    "liveDemo": "Live Demo",
+    "sourceCode": "Source Code"
+  },
+  "blog": {
+    "title": "Blog",
+    "readMore": "Read More",
+    "publishedOn": "Published on",
+    "category": "Category",
+    "tags": "Tags"
+  },
+  "contact": {
+    "title": "Contact Me",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send Message",
+    "success": "Message sent successfully!",
+    "error": "Failed to send message. Please try again."
+  },
+  "footer": {
+    "copyright": "All rights reserved",
+    "socialMedia": "Follow Me"
+  },
+  "textWelcome": "Welcome to Our Company"
+}

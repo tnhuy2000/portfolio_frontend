@@ -1,0 +1,113 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+@use "tailwindcss";
+
+/* Custom dark mode variant (Tailwind v4 cách mới) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ====================== Theme Colors ====================== */
+@theme {
+  --color-background: #ffffff;
+  --color-foreground: #0a0a0a;
+  --color-card: #ffffff;
+  --color-card-foreground: #0a0a0a;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #0a0a0a;
+  --color-primary: #030213;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #f1f5f9;
+  --color-secondary-foreground: #0f172a;
+  --color-muted: #f1f5f9;
+  --color-muted-foreground: #64748b;
+  --color-accent: #f1f5f9;
+  --color-accent-foreground: #0f172a;
+  --color-destructive: #ef4444;
+  --color-border: #e2e8f0;
+  --color-input: #e2e8f0;
+  --color-ring: #3b82f6;
+
+  /* Chart colors (dùng cho gradient và skills) */
+  --color-chart-1: #3b82f6;
+  --color-chart-2: #10b981;
+  --color-chart-3: #8b5cf6;
+  --color-chart-4: #f59e0b;
+  --color-chart-5: #ec4899;
+}
+
+/* Dark mode colors */
+@layer base {
+  .dark {
+    --color-background: #0a0a0a;
+    --color-foreground: #f8fafc;
+    --color-primary: #fafafa;
+    --color-primary-foreground: #171717;
+    --color-card: #111111;
+    --color-card-foreground: #f8fafc;
+    --color-popover: #111111;
+    --color-popover-foreground: #f8fafc;
+    --color-secondary: #1f2937;
+    --color-secondary-foreground: #f1f5f9;
+    --color-muted: #1f2937;
+    --color-muted-foreground: #94a3b8;
+    --color-accent: #1f2937;
+    --color-accent-foreground: #f1f5f9;
+    --color-border: #334155;
+    --color-input: #334155;
+  }
+}
+
+/* ====================== Base Styles ====================== */
+@layer base {
+  body {
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  :root {
+    --primary-rgb: 59 130 246; /* cho background code */
+  }
+}
+
+/* ====================== Utilities ====================== */
+@layer utilities {
+  .animate-float {
+    animation: float 20s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-30px) rotate(5deg); }
+  }
+
+  .animate-spin-slow {
+    animation: spin 25s linear infinite;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+}
+
+
+/* Tối ưu chuyển theme mượt mà */
+:root {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.dark {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Giảm flash khi load */
+html {
+  color-scheme: light dark;
+  scroll-behavior: smooth;
+}

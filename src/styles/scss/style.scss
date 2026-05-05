@@ -1,0 +1,20 @@
+/* third party styles */
+@use 'antd/dist/reset.css';
+
+
+
+/* abstracts styles */
+@use "abstracts/variables";
+@use "abstracts/mixins";
+
+
+/* vendors styles */
+@use "vendors/swiper";
+
+/* base styles */
+@use "base/globals";
+@use "base/strapi";
+
+/* components styles */
+
+/* pages styles */

@@ -1,0 +1,12 @@
+// Swiper custom overrides
+// Base Swiper styles are imported in the component
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  // Ensure slides have proper sizing
+  box-sizing: border-box;
+}

@@ -1,0 +1,31 @@
+overwrite: true
+schema: ${NEXT_PUBLIC_GRAPHQL_ENDPOINT}
+documents:
+  - 'codegen/graphql-definition/web-service/**/*.ts'
+  - 'codegen/graphql-definition/web-service/**/*.graphql'
+generates:
+  src/graphql/generated.ts:
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'
+      - add:
+          content: '/*'
+      - add:
+          content: ' * ------------------------------------------------------'
+      - add:
+          content: ' * THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)'
+      - add:
+          content: ' * -------------------------------------------------------'
+      - add:
+          content: ' */'
+      - add:
+          content: '/* eslint-disable unicorn/no-abusive-eslint-disable */'
+      - add:
+          content: '/* eslint-disable */'
+    config:
+      apolloClientVersion: 4
+      withHOC: false
+      withComponent: false
+
+      # 🔴 QUAN TRỌNG
+      avoidOptionals: true

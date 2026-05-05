@@ -1,0 +1,14 @@
+# Cho phép tất cả bot
+User-agent: *
+Allow: /
+
+# Block các routes cụ thể
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /hidden-page
+Disallow: /draft
+Disallow: /testing
+Disallow: /internal
+
+# Sitemap
+Sitemap: https://yourdomain.com/sitemap.xml

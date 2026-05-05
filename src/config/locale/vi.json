@@ -1,0 +1,54 @@
+{
+  "common": {
+    "loading": "Đang tải...",
+    "save": "Lưu",
+    "cancel": "Hủy",
+    "edit": "Sửa",
+    "delete": "Xóa",
+    "search": "Tìm kiếm",
+    "filter": "Lọc",
+    "viewAll": "Xem tất cả"
+  },
+  "nav": {
+    "home": "Trang chủ",
+    "about": "Giới thiệu",
+    "services": "Dịch vụ",
+    "team": "Đội ngũ",
+    "projects": "Dự án",
+    "blog": "Blog",
+    "contact": "Liên hệ"
+  },
+  "home": {
+    "welcome": "Chào mừng",
+    "title": "Hồ sơ năng lực",
+    "subtitle": "Giới thiệu công việc của tôi"
+  },
+  "projects": {
+    "title": "Dự án",
+    "viewProject": "Xem dự án",
+    "technologies": "Công nghệ",
+    "liveDemo": "Demo trực tiếp",
+    "sourceCode": "Mã nguồn"
+  },
+  "blog": {
+    "title": "Blog",
+    "readMore": "Đọc thêm",
+    "publishedOn": "Xuất bản vào",
+    "category": "Danh mục",
+    "tags": "Thẻ"
+  },
+  "contact": {
+    "title": "Liên hệ",
+    "name": "Tên",
+    "email": "Email",
+    "message": "Tin nhắn",
+    "send": "Gửi tin nhắn",
+    "success": "Gửi tin nhắn thành công!",
+    "error": "Gửi tin nhắn thất bại. Vui lòng thử lại."
+  },
+  "footer": {
+    "copyright": "Bản quyền thuộc về",
+    "socialMedia": "Theo dõi tôi"
+  },
+  "textWelcome": "Chào mừng"
+}
