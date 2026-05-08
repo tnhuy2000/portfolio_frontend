@@ -37,7 +37,7 @@ const ScrollToTop = () => {
           transition={{ duration: 0.3 }}
           onClick={scrollToTop}
           className="fixed bottom-8 right-8 z-50 p-4 
-                     bg-primary hover:bg-primary/90 
+                     bg-primary hover:cursor-pointer
                      text-primary-foreground 
                      rounded-full shadow-lg 
                      transition-all duration-300

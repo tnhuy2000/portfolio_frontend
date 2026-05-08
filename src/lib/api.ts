@@ -1,30 +1,30 @@
 import { ContactInfo, Profile, Project, Skill, Stat } from "@/types";
-import { fetchStrapi } from "./strapi";
+import { fetchStrapiClient} from "./strapi";
 
 
 export async function getProfile() {
-  const response = await fetchStrapi<{ data: Profile }>(
+  const response = await fetchStrapiClient<{ data: Profile }>(
     '/profile?populate=*'
   );
   return response.data;
 }
 
 export async function getContactInfo() {
-  const response = await fetchStrapi<{ data: ContactInfo }>(
+  const response = await fetchStrapiClient<{ data: ContactInfo }>(
     '/contact-info?populate=*'
   );
   return response.data;
 }
 
 export async function getProject() {
-  const response = await fetchStrapi<{ data: Project[] }>(
+  const response = await fetchStrapiClient<{ data: Project[] }>(
     '/projects?populate=*'
   );
   return response.data;
 }
 
 export async function getSkills() {
-  const response = await fetchStrapi<{ data: Skill[] }>(
+  const response = await fetchStrapiClient<{ data: Skill[] }>(
     '/skills?populate=*'
   );
   return response.data;
@@ -32,7 +32,7 @@ export async function getSkills() {
 
 
 export async function getStat() {
-  const response = await fetchStrapi<{ data: Stat[] }>(
+  const response = await fetchStrapiClient<{ data: Stat[] }>(
     '/stats?populate=*'
   );
   return response.data;

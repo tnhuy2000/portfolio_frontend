@@ -1,8 +1,6 @@
+import { Locale } from 'next-intl';
 import { getRequestConfig } from 'next-intl/server';
 import { cookies } from 'next/headers';
-
-export const locales = ['en', 'vi'] as const;
-export type Locale = (typeof locales)[number];
 
 export default getRequestConfig(async () => {
   // Get locale from cookie or default to 'en'
@@ -11,6 +9,7 @@ export default getRequestConfig(async () => {
 
   return {
     locale,
-    messages: (await import(`@/config/locale/${locale}.json`)).default
+    messages: (await import(`@/config/locale/${locale}.json`)).default,
+    timeZone: 'Asia/Ho_Chi_Minh',
   };
 });

@@ -1,27 +1,32 @@
 export const navItems = [
   {
-    title: 'Home',
+    label: 'Home',
     translationKey: 'nav.home',
-    href: '/',
+    href: '#home',
+    order: 1
   },
   {
-    title: 'About',
+    label: 'About',
     translationKey: 'nav.about',
-    href: '/about',
+    href: '#about',
+    order: 2
   },
   {
-    title: 'Services',
-    translationKey: 'nav.services',
-    href: '/services',
+    label: 'Skills',
+    translationKey: 'nav.skills',
+    href: '#skills',
+    order: 3
   },
   {
-    title: 'Team',
-    translationKey: 'nav.team',
-    href: '/team',
+    label: 'Projects',
+    translationKey: 'nav.projects',
+    href: '#projects',
+    order: 4
   },
   {
-    title: 'Contact',
+    label: 'Contact',
     translationKey: 'nav.contact',
-    href: '/contact',
-  },
+    href: '#contact',
+    order: 5
+  }
 ] as const;

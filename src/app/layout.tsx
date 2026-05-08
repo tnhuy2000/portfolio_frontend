@@ -10,9 +10,9 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { PublicSettingsProvider } from '@/contexts/PublicSettingsContext';
 import { ThemeProvider } from '@/contexts/ThemeContext';
-import ScrollToTop from '@/components/ui/scroll-to-top';
+import ScrollToTop from '@/components/ui/ScrollToTop';
 import ClientLoadingWrapper from '@/components/shared/ClientLoadingWrapper';
-
+import { LanguageProvider } from '@/contexts/LanguageContext';
 const beVietnamPro = Be_Vietnam_Pro({
   subsets: ['latin', 'vietnamese'],
   weight: ['300', '400', '500', '600', '700'],
@@ -22,7 +22,7 @@ const beVietnamPro = Be_Vietnam_Pro({
 
 export const metadata: Metadata = {
   title: "Nhu Y Truong | Full-stack Developer",
-  description: "PPortfolio of Nhu Y Truong, a Full-stack Developer specializing in React.js, Next.js, and Node.js/NestJS. Showcasing projects, experience, and technical skills",
+  description: "Portfolio of Nhu Y Truong, a Full-stack Developer specializing in React.js, Next.js, and Node.js/NestJS. Showcasing projects, experience, and technical skills",
 };
 
 export default async function RootLayout({
@@ -37,21 +37,24 @@ export default async function RootLayout({
       <body suppressHydrationWarning className={`${beVietnamPro.className}`}>
         <NextIntlClientProvider messages={messages}>
           <ApolloProvider>
-            <PublicSettingsProvider>
-              <ThemeProvider>
-                <ClientLoadingWrapper>
-                  <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-                    <Header />
-                    <main>
-                      {children}
-                    </main>
-                    <Footer />
-                    <ScrollToTop />
-                  </div>
-                </ClientLoadingWrapper>
-              </ThemeProvider>
-       
-            </PublicSettingsProvider>
+            <LanguageProvider>
+              <PublicSettingsProvider>
+                <ThemeProvider>
+                  <ClientLoadingWrapper>
+                    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+                      <Header />
+                      <main>
+                        {children}
+                      </main>
+                      <Footer />
+                      <ScrollToTop />
+                    </div>
+                  </ClientLoadingWrapper>
+                </ThemeProvider>
+
+              </PublicSettingsProvider>
+            </LanguageProvider>
+
           </ApolloProvider>
         </NextIntlClientProvider>
       </body>

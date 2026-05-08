@@ -5,9 +5,10 @@ import { Terminal, Mail, Github, Linkedin } from 'lucide-react';
 import { getProfile } from '@/lib/api';
 import { Profile } from '@/types';
 import { BlocksRenderer } from '@strapi/blocks-react-renderer';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function Hero() {
-
+  const { locale } = useLanguage();
   const [profile, setProfile] = useState<Profile | null>(null);
 
   useEffect(() => {
@@ -20,7 +21,7 @@ export default function Hero() {
       }
     }
     fetchProfile();
-  }, []);
+  }, [locale]);
   const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -113,10 +114,22 @@ export default function Hero() {
                 <p className="pl-6">
                   location: <span className="text-emerald-600 dark:text-emerald-400">"{profile?.location}"</span>,
                 </p>
+                 <p className="pl-6">
+                  skills: [
+                    {profile?.skills?.map((skill, index) => (
+                      <span key={index}>
+                        <span className="text-emerald-600 dark:text-emerald-400">
+                          "{skill}"
+                        </span>
+                        {index !== (profile?.skills?.length - 1) && ", "}
+                      </span>
+                    ))}
+                    ],
+                </p>
                 <p className="pl-6">
                   passion: <span className="text-emerald-600 dark:text-emerald-400">"{profile?.passion}"</span>
                 </p>
-                <p className="text-emerald-600 dark:text-emerald-400">{'}'}</p>
+                <p>{'}'}</p>
               </div>
             </div>
           </div>
@@ -161,7 +174,7 @@ export default function Hero() {
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.25, y: -2 }}
                 whileTap={{ scale: 0.9 }}
-                className="p-4 bg-accent hover:bg-accent/80 rounded-2xl transition-all"
+                className="p-4 bg-accent hover:rotate-15 hover:bg-accent/80 rounded-2xl transition-transform duration-200"
               >
                 <Icon className="w-6 h-6" />
               </motion.a>

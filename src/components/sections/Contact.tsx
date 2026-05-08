@@ -1,16 +1,14 @@
+import { useLanguage } from '@/contexts/LanguageContext';
 import { getContactInfo } from '@/lib/api';
 import { ContactInfo } from '@/types';
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail, Send } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
-const contactMethods = [
-  { icon: Mail, title: "Email", value: "tnhuy2000@gmail.com", href: "mailto:tnhuy2000@gmail.com", color: "text-chart-1" },
-  { icon: Mail, title: "LinkedIn", value: "/truongnhuy0511", href: "https://www.linkedin.com/in/truongnhuy0511", color: "text-chart-2" },
-  { icon: Mail, title: "GitHub", value: "@tnhuy2000", href: "https://github.com/tnhuy2000", color: "text-chart-3" },
-];
-
 const Contact = () => {
+  const t = useTranslations();
+  const { locale } = useLanguage();
   const [contactInfo, setContactInfo] = useState<ContactInfo | null>(null);
   useEffect(() => {
     async function fetchContactInfo() {
@@ -23,7 +21,7 @@ const Contact = () => {
     }
 
     fetchContactInfo();
-  }, []);
+  }, [locale]);
   return (
     <section id="contact" className="py-24 px-6 bg-secondary/30 relative overflow-hidden scroll-mt-20">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
@@ -89,7 +87,7 @@ const Contact = () => {
             <div className={`inline-flex p-5 rounded-2xl bg-muted mb-6 group-hover:scale-110 transition-transform text-chart-1`}>
               <Github className="w-10 h-10" />
             </div>
-            <h4 className="text-xl font-semibold mb-2">Github</h4>
+            <h4 className="text-xl font-semibold mb-2">GitHub</h4>
             {/* <p className="text-muted-foreground font-mono break-all">{contactInfo?.github}</p> */}
           </motion.a>
         </div>
@@ -101,14 +99,14 @@ const Contact = () => {
             whileTap={{ scale: 0.95 }}
             className="inline-flex items-center gap-3 px-10 py-4 bg-gradient-to-r from-primary to-chart-1 text-primary-foreground rounded-2xl shadow-lg hover:shadow-2xl transition-all font-mono text-lg group"
           >
-            {contactInfo?.buttonText}
             <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            {contactInfo?.buttonText}
           </motion.a>
         </div>
 
         <div className="pt-16 border-t border-border text-center mt-16">
           <p className="text-muted-foreground font-mono mb-2">&lt;/portfolio&gt;</p>
-          <p className="text-muted-foreground">© 2026 Nhu Y. Built with React &amp; Tailwind CSS</p>
+          <p className="text-muted-foreground">{t('footer.copyright')}</p>
         </div>
       </div>
     </section>

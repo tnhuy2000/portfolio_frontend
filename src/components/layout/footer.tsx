@@ -1,5 +1,6 @@
 "use client";
-import Contact from '../sections/Contact';
+
+import Contact from "../sections/Contact";
 
 export function Footer() {
   return (

@@ -7,6 +7,7 @@ export interface Profile {
   name: string;
   roles: string[];
   location: string;
+  skills: string[];
   passion: string;
   avatar?: {
     url: string;

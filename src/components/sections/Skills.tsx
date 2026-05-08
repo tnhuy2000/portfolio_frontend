@@ -1,55 +1,14 @@
+import { useLanguage } from '@/contexts/LanguageContext';
 import { getSkills } from '@/lib/api';
 import { Skill } from '@/types';
 import { motion } from 'framer-motion';
-import { Code2, Database, Wrench } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
-const skillCategories = [
-  {
-    title: "Frontend",
-    icon: Code2,
-    color: "text-chart-1",
-    gradient: "from-chart-1",
-    skills: [
-      { name: "React", level: 95 },
-      { name: "TypeScript", level: 90 },
-      { name: "Tailwind CSS", level: 92 },
-      { name: "Next.js", level: 88 },
-      { name: "Vue.js", level: 75 },
-      { name: "HTML/CSS", level: 98 },
-    ]
-  },
-  {
-    title: "Backend",
-    icon: Database,
-    color: "text-chart-2",
-    gradient: "from-chart-2",
-    skills: [
-      { name: "Node.js", level: 90 },
-      { name: "Express", level: 85 },
-      { name: "PostgreSQL", level: 82 },
-      { name: "MongoDB", level: 80 },
-      { name: "GraphQL", level: 78 },
-      { name: "REST APIs", level: 93 },
-    ]
-  },
-  {
-    title: "Tools & Others",
-    icon: Wrench,
-    color: "text-chart-3",
-    gradient: "from-chart-3",
-    skills: [
-      { name: "Git", level: 95 },
-      { name: "Docker", level: 85 },
-      { name: "AWS", level: 75 },
-      { name: "CI/CD", level: 80 },
-      { name: "Figma", level: 88 },
-      { name: "Testing", level: 82 },
-    ]
-  },
-];
 
 const Skills = () => {
+  const t = useTranslations();
+  const { locale } = useLanguage();
   const [skillGroups, setSkills] = useState<Object>([]);
 
   useEffect(() => {
@@ -70,7 +29,7 @@ const Skills = () => {
     }
 
     fetchSkills();
-  }, []);
+  }, [locale]);
   return (
     <section id="skills" className="py-24 px-6 scroll-mt-20">
       <div className="max-w-5xl mx-auto">
@@ -80,8 +39,8 @@ const Skills = () => {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">Skills & Technologies</h2>
-          <p className="text-muted-foreground font-mono">// My technical arsenal</p>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">{t('skills.title')}</h2>
+          <p className="text-muted-foreground font-mono">{t('skills.subTitle')}</p>
         </motion.div>
 
         <div className="grid md:grid-cols-3 gap-8">

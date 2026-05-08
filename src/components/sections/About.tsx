@@ -1,21 +1,17 @@
 'use client'
 
 import { motion } from 'framer-motion';
-import { Coffee, Laptop, BookOpen, Rocket } from 'lucide-react';
 import { memo, useEffect, useState } from 'react';
 import { StrapiImage } from '../ui/StrapiImage';
 import { Profile, Stat } from '@/types';
 import { getProfile, getStat } from '@/lib/api';
 import { BlocksRenderer } from '@strapi/blocks-react-renderer';
-
-const stats = [
-  { icon: Coffee, value: "1000+", label: "Cups of Coffee", color: "text-chart-1", bgColor: "bg-chart-1/20" },
-  { icon: Laptop, value: "50+", label: "Projects Done", color: "text-chart-2", bgColor: "bg-chart-2/20" },
-  { icon: BookOpen, value: "100+", label: "Tech Articles", color: "text-chart-3", bgColor: "bg-chart-3/20" },
-  { icon: Rocket, value: "3+", label: "Years Experience", color: "text-chart-4", bgColor: "bg-chart-4/20" },
-];
+import { useLanguage } from '@/contexts/LanguageContext';
+import { useTranslations } from 'next-intl';
 
 const About = memo(() => {
+  const t = useTranslations();
+  const { locale } = useLanguage();
   const [profile, setProfile] = useState<Profile | null>(null);
   const [statData, setStatData] = useState<Stat[]>([]);
 
@@ -40,7 +36,7 @@ const About = memo(() => {
     }
     fetchProfile();
     fetchStat();
-  }, []);
+  }, [locale]);
   return (
     <section id="about" className="py-24 px-6 scroll-mt-20">
       <div className="max-w-6xl mx-auto">
@@ -50,8 +46,8 @@ const About = memo(() => {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">About Me</h2>
-          <p className="text-muted-foreground font-mono">// Who is behind the code?</p>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">{t('profile.textAboutMe')}</h2>
+          <p className="text-muted-foreground font-mono">{t('profile.subTitle')}</p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-12 items-center mb-16">

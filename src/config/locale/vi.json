@@ -12,8 +12,7 @@
   "nav": {
     "home": "Trang chủ",
     "about": "Giới thiệu",
-    "services": "Dịch vụ",
-    "team": "Đội ngũ",
+    "skills": "Kĩ năng",
     "projects": "Dự án",
     "blog": "Blog",
     "contact": "Liên hệ"
@@ -23,12 +22,20 @@
     "title": "Hồ sơ năng lực",
     "subtitle": "Giới thiệu công việc của tôi"
   },
+  "profile": {
+    "textAboutMe": "Giới thiệu về tôi",
+    "subTitle": "Ai là người đứng sau đoạn mã này?"
+  },
   "projects": {
-    "title": "Dự án",
-    "viewProject": "Xem dự án",
+    "title": "Dự án nổi bật",
+    "subTitle": "// Xây dựng tương lai, từng bước một",
     "technologies": "Công nghệ",
-    "liveDemo": "Demo trực tiếp",
-    "sourceCode": "Mã nguồn"
+    "textDemo": "Thử nghiệm",
+    "textCode": "Mã nguồn"
+  },
+  "skills": {
+    "title": "Kỹ năng & Công nghệ",
+    "subTitle": "// Kho vũ khí kỹ thuật của tôi"
   },
   "blog": {
     "title": "Blog",
@@ -47,8 +54,7 @@
     "error": "Gửi tin nhắn thất bại. Vui lòng thử lại."
   },
   "footer": {
-    "copyright": "Bản quyền thuộc về",
-    "socialMedia": "Theo dõi tôi"
+    "copyright": "© 2026 Như Ý. Được xây dựng bằng React & Tailwind CSS"
   },
   "textWelcome": "Chào mừng"
 }

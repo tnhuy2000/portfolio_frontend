@@ -12,8 +12,7 @@
   "nav": {
     "home": "Home",
     "about": "About",
-    "services": "Services",
-    "team": "Team",
+    "skills": "Skills",
     "projects": "Projects",
     "blog": "Blog",
     "contact": "Contact"
@@ -23,12 +22,19 @@
     "title": "Portfolio",
     "subtitle": "Showcasing My Work"
   },
+  "profile": {
+    "textAboutMe": "About Me",
+    "subTitle": "// Who is behind the code?"
+  },
   "projects": {
-    "title": "Projects",
-    "viewProject": "View Project",
-    "technologies": "Technologies",
-    "liveDemo": "Live Demo",
-    "sourceCode": "Source Code"
+    "title": "Feature Project",
+    "subTitle": "// Building the future, one commit at a time",
+    "textDemo": "Demo",
+    "textCode": "Code"
+  },
+  "skills": {
+    "title": "Skills & Technologies",
+    "subTitle": "// My technical arsenal"
   },
   "blog": {
     "title": "Blog",
@@ -47,8 +53,7 @@
     "error": "Failed to send message. Please try again."
   },
   "footer": {
-    "copyright": "All rights reserved",
-    "socialMedia": "Follow Me"
+    "copyright": "© 2026 Nhu Y. Built with React & Tailwind CSS"
   },
-  "textWelcome": "Welcome to Our Company"
+  "textWelcome": "Welcome to my portfolio"
 }

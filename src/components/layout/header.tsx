@@ -1,25 +1,15 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { usePathname } from 'next/navigation';
-import { Code2, Menu, Moon, Sun, X } from 'lucide-react';
-import { usePublicSettings } from '@/contexts/PublicSettingsContext';
+import { Menu, Moon, Sun, X } from 'lucide-react';
 import { useTheme } from '@/contexts/ThemeContext';
 import { motion } from 'framer-motion';
-// Fallback navigation items (used when API is loading or fails)
-const fallbackNavItems = [
-  { label: 'About', href: '#about' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Contacts', href: '#contact' },
-];
-
-const languages = [
-  { code: 'En', label: 'English' },
-  { code: 'Vi', label: 'Vietnamese' },
-];
+import { navItems as navigationItems }  from '../../config/navigation'
+import { LanguageSwitcher } from '../ui/LanguageSwitcher';
+import { useTranslations } from 'next-intl';
 
 export function Header() {
+  const t = useTranslations();
   const { isDark, toggleTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -28,23 +18,17 @@ export function Header() {
     setMounted(true);
   }, []);
 
-  const [activeLanguage, setActiveLanguage] = useState('En');
-
   // Use API data if available, otherwise fallback to static data
-  const apiNavItems = fallbackNavItems as Array<{
-    label: string;
-    href: string;
-    order: number;
-  }> | undefined;
+  const apiNavItems = navigationItems
 
   const navItems = apiNavItems && apiNavItems.length > 0
     ? apiNavItems
       .toSorted((a, b) => a.order - b.order)
-      .map((nav) => ({ label: nav.label, href: nav.href }))
-    : fallbackNavItems;
+      .map((nav) => ({ label: nav.label, href: nav.href, translationKey: nav.translationKey }))
+    : navigationItems;
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
+    <nav id="#home" className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
         <a href='/' className="flex items-center gap-2 cursor-pointer">
           <span className="font-mono text-xl font-semibold">&lt;/&gt;</span>dev
@@ -58,11 +42,11 @@ export function Header() {
               href={link.href}
               className="text-muted-foreground hover:text-foreground transition-colors relative group"
             >
-              {link.label}
+              {t(`${link?.translationKey}`)}
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all" />
             </a>
           ))}
-
+          <LanguageSwitcher/>
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
@@ -102,9 +86,10 @@ export function Header() {
                 onClick={() => setIsOpen(false)}
                 className="py-2 text-muted-foreground hover:text-foreground"
               >
-                {link.label}
+                {t(`${link?.translationKey}`)}
               </a>
             ))}
+             <LanguageSwitcher/>
             <button
               onClick={() => { toggleTheme(); setIsOpen(false); }}
               className="flex items-center gap-3 py-3 text-muted-foreground hover:text-foreground"
