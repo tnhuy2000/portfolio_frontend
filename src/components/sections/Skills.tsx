@@ -1,6 +1,6 @@
 import { useLanguage } from '@/contexts/LanguageContext';
-import { getSkills } from '@/lib/api';
-import { Skill } from '@/types';
+import { getCategories } from '@/lib/api';
+import { Category, Skill } from '@/types';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
@@ -9,26 +9,20 @@ import { useEffect, useState } from 'react';
 const Skills = () => {
   const t = useTranslations();
   const { locale } = useLanguage();
-  const [skillGroups, setSkills] = useState<Object>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
 
   useEffect(() => {
-    async function fetchSkills() {
+
+    async function fetchCategories() {
       try {
-        const data = await getSkills();
-        const grouped = data?.reduce<Record<string, Skill[]>>((acc, item) => {
-        if (!acc[item.category]) {
-          acc[item.category] = [];
-        }
-        acc[item.category].push(item);
-        return acc;
-      }, {});
-        setSkills(grouped);
+        const data = await getCategories();
+        setCategories(data);
       } catch (error) {
         console.error("Failed to fetch skills:", error);
       }
     }
 
-    fetchSkills();
+    fetchCategories();
   }, [locale]);
   return (
     <section id="skills" className="py-24 px-6 scroll-mt-20">
@@ -44,7 +38,7 @@ const Skills = () => {
         </motion.div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          {Object.entries(skillGroups)?.map(([category, skills], idx) => (
+          {categories?.map((category, idx) => (
             <motion.div
               key={idx}
               initial={{ opacity: 0, y: 30 }}
@@ -54,14 +48,14 @@ const Skills = () => {
               className="bg-card border border-border rounded-3xl p-8 hover:border-primary/50 hover:shadow-xl transition-all"
             >
               <div className="flex items-center gap-4 mb-8">
-                <div className={`p-4 rounded-2xl bg-muted ${skills[0].color}`}>
-                   <div className={`${skills[0].color}`} dangerouslySetInnerHTML={{ __html: skills[0]?.iconSVG || '' }}/>
+                <div className={`p-4 rounded-2xl bg-muted ${category?.color}`}>
+                   <div className={`${category?.color}`} dangerouslySetInnerHTML={{ __html: category?.iconSVG || '' }}/>
                 </div>
-                <h3 className="text-2xl font-semibold">{category}</h3>
+                <h3 className="text-2xl font-semibold">{category?.title}</h3>
               </div>
 
               <div className="space-y-6">
-                {skills?.map((skill: Skill, i: number) => (
+                {category?.skills?.map((skill: Skill, i: number) => (
                   <div key={i}>
                     <div className="flex justify-between mb-2 text-sm">
                       <span className="font-mono">{skill.name}</span>
@@ -73,7 +67,7 @@ const Skills = () => {
                         whileInView={{ width: `${skill.level}%` }}
                         viewport={{ once: true }}
                         transition={{ duration: 1.2, delay: i * 0.1 }}
-                        className={`h-full bg-gradient-to-r ${skill.gradient} to-chart-1/70 rounded-full`}
+                        className={`h-full bg-gradient-to-r ${category?.gradient} to-chart-1/70 rounded-full`}
                       />
                     </div>
                   </div>

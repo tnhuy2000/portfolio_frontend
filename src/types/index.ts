@@ -2,6 +2,12 @@
 
 import type { BlocksContent } from "@strapi/blocks-react-renderer";
 
+// ====================Media ====================
+type Media = {
+  url: string;
+  alternativeText?: string;
+} 
+
 // ====================Profile ====================
 export interface Profile {
   name: string;
@@ -70,9 +76,25 @@ export interface Skill {
   name: string;
   level: number;
   category: string;
+}
+
+// ==================== SKill ====================
+export interface Category {
+  title: string;
   iconSVG?: string;
   color: string;
   gradient: string;
+  skills: Skill[];
+}
+
+export interface Setting {
+  SEO_metaTitle: string;
+  SEO_metaDescription: string;
+  SEO_metaImage: Media;
+  SEO_keywords: string;
+  favicon: Media;
+  logo: Media
+  copyright: string
 }
 
 

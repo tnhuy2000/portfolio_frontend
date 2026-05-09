@@ -56,5 +56,8 @@
   "footer": {
     "copyright": "© 2026 Như Ý. Được xây dựng bằng React & Tailwind CSS"
   },
-  "textWelcome": "Chào mừng"
+  "textWelcome": "Chào mừng",
+  "textLanguage": "Ngôn ngữ",
+  "textDarkMode": "Chế độ tối",
+  "textLightMode": "Chế độ sáng"
 }

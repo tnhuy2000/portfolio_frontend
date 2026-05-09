@@ -1,6 +1,6 @@
 "use client";
 
-import { useLocale } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { useEffect, useRef, useState, useTransition } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Languages } from 'lucide-react';
@@ -11,7 +11,12 @@ const languages = [
   { code: 'vi', label: 'Tiếng Việt', flag: '🇻🇳' }
 ] as const;
 
-export const LanguageSwitcher = () => {
+interface LanguageSwitcherType {
+  setIsOpen?:  React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export const LanguageSwitcher = ({ setIsOpen }: LanguageSwitcherType) => {
+  const t = useTranslations();
   const { locale, changeLanguage } = useLanguage(); // ← Sử dụng Context
 
   const [showLangMenu, setShowLangMenu] = useState(false);
@@ -22,6 +27,10 @@ export const LanguageSwitcher = () => {
     // Cập nhật Context
     changeLanguage(newLocale);
     setShowLangMenu(false);
+    if(setIsOpen) {
+      setIsOpen(false)
+    }
+
   };
 
   // Close menu khi click ra ngoài
@@ -98,7 +107,7 @@ export const LanguageSwitcher = () => {
       {/* Mobile Language Switcher */}
       <div className="space-y-2 md:hidden">
         <p className="text-muted-foreground flex items-center gap-2">
-          <Languages className="w-5 h-5" /> Language
+          <Languages className="w-5 h-5" /> {t('textLanguage')}
         </p>
         {languages.map((lang) => (
           <button

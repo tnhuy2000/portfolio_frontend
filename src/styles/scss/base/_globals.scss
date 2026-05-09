@@ -94,6 +94,15 @@
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
   }
+  .text-chart-3 {
+    color: var(--color-chart-3);
+  }
+  .text-chart-4 {
+    color: var(--color-chart-4);
+  }
+  .text-chart-5 {
+    color: var(--color-chart-5);
+  }
 }
 
 

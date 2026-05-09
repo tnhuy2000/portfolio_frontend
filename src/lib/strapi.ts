@@ -6,20 +6,16 @@ export async function fetchStrapiServer<T>(
   options: RequestInit = {}
 ) {
   const locale = await getLocale();
-  console.log('locale', locale)
   return fetchStrapiBase<T>(endpoint, locale, options);
 }
 
 // Client fetch (dùng trong Client Component)
 export async function fetchStrapiClient<T>(
   endpoint: string,
-  // locale?: string,
   options: RequestInit = {}
 ) {
   
   let currentLocale = Cookies.get('NEXT_LOCALE') || 'en';
-  console.log('locale', currentLocale)
-    console.log(' locale 2',  Cookies.get('NEXT_LOCALE'))
   return fetchStrapiBase<T>(endpoint, currentLocale, options);
 }
 

@@ -1,4 +1,5 @@
 import { useLanguage } from '@/contexts/LanguageContext';
+import { usePublicSettings } from '@/contexts/PublicSettingsContext';
 import { getContactInfo } from '@/lib/api';
 import { ContactInfo } from '@/types';
 import { motion } from 'framer-motion';
@@ -9,6 +10,8 @@ import { useEffect, useState } from 'react';
 const Contact = () => {
   const t = useTranslations();
   const { locale } = useLanguage();
+  const { settings } = usePublicSettings();
+
   const [contactInfo, setContactInfo] = useState<ContactInfo | null>(null);
   useEffect(() => {
     async function fetchContactInfo() {
@@ -19,7 +22,6 @@ const Contact = () => {
         console.error("Failed to fetch contact info:", error);
       }
     }
-
     fetchContactInfo();
   }, [locale]);
   return (
@@ -66,6 +68,7 @@ const Contact = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             whileHover={{ scale: 1.03 }}
+            transition={{ delay:  0.2 }}
             className="bg-card border border-border rounded-3xl p-8 text-center hover:border-primary/50 hover:shadow-xl transition-all group"
           >
             <div className={`inline-flex p-5 rounded-2xl bg-muted mb-6 group-hover:scale-110 transition-transform text-chart-2`}>
@@ -82,6 +85,7 @@ const Contact = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             whileHover={{ scale: 1.03 }}
+            transition={{ delay:  0.3 }}
             className="bg-card border border-border rounded-3xl p-8 text-center hover:border-primary/50 hover:shadow-xl transition-all group"
           >
             <div className={`inline-flex p-5 rounded-2xl bg-muted mb-6 group-hover:scale-110 transition-transform text-chart-1`}>
@@ -106,7 +110,7 @@ const Contact = () => {
 
         <div className="pt-16 border-t border-border text-center mt-16">
           <p className="text-muted-foreground font-mono mb-2">&lt;/portfolio&gt;</p>
-          <p className="text-muted-foreground">{t('footer.copyright')}</p>
+          <p className="text-muted-foreground">{settings?.copyright}</p>
         </div>
       </div>
     </section>

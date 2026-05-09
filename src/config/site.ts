@@ -1,11 +1,44 @@
-export const siteConfig = {
-  name: 'Nhu Y Truong | Full-stack Developer',
-  description: 'Portfolio of Nhu Y Truong, a Full-stack Developer specializing in React.js, Next.js, and Node.js/NestJS. Showcasing projects, experience, and technical skills',
-  url: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
-  ogImage: '/images/og.jpg',
-  links: {
-    github: 'https://github.com',
-    linkedin: 'https://linkedin.com',
-    twitter: 'https://twitter.com',
-  },
-} as const;
+import { Setting } from "@/types";
+import { getImageStrapiUrl } from "@/utils/image";
+import { Metadata } from "next";
+
+export function generateSeoMetadata(
+  seo: Setting
+): Metadata  {
+  const imageUrl = getImageStrapiUrl(seo?.SEO_metaImage?.url);
+
+  return {
+    title: seo?.SEO_metaTitle,
+    
+    description:
+      seo?.SEO_metaDescription,
+
+    keywords: seo?.SEO_keywords,
+
+    openGraph: {
+      title: seo?.SEO_metaTitle,
+
+      description:
+        seo?.SEO_metaDescription,
+      siteName: "Portfolio",
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+        },
+      ],
+
+      locale: "en_US",
+
+      type: "website",
+    },
+    icons: {
+      icon: seo?.favicon?.url
+        ? getImageStrapiUrl(
+            seo.favicon.url
+          )
+        : "/favicon.ico",
+    },
+  }
+}

@@ -13,6 +13,8 @@ import { ThemeProvider } from '@/contexts/ThemeContext';
 import ScrollToTop from '@/components/ui/ScrollToTop';
 import ClientLoadingWrapper from '@/components/shared/ClientLoadingWrapper';
 import { LanguageProvider } from '@/contexts/LanguageContext';
+import { getPublicSettings } from '@/lib/api';
+import { generateSeoMetadata } from '@/config/site';
 const beVietnamPro = Be_Vietnam_Pro({
   subsets: ['latin', 'vietnamese'],
   weight: ['300', '400', '500', '600', '700'],
@@ -20,10 +22,13 @@ const beVietnamPro = Be_Vietnam_Pro({
   variable: "--font-be-vietnam-pro",
 })
 
-export const metadata: Metadata = {
-  title: "Nhu Y Truong | Full-stack Developer",
-  description: "Portfolio of Nhu Y Truong, a Full-stack Developer specializing in React.js, Next.js, and Node.js/NestJS. Showcasing projects, experience, and technical skills",
-};
+
+export async function generateMetadata():Promise<Metadata> {
+
+  const response =
+    await getPublicSettings();
+  return generateSeoMetadata(response);
+}
 
 export default async function RootLayout({
   children,

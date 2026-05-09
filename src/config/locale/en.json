@@ -55,5 +55,8 @@
   "footer": {
     "copyright": "© 2026 Nhu Y. Built with React & Tailwind CSS"
   },
-  "textWelcome": "Welcome to my portfolio"
+  "textWelcome": "Welcome to my portfolio",
+  "textLanguage": "Language",
+  "textDarkMode": "Dark Mode",
+  "textLightMode": "Light Mode"
 }

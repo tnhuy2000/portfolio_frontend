@@ -57,7 +57,7 @@ export default function Hero() {
   );
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center px-6 relative pt-16 md:pt-20">
+    <section id="home" className="min-h-screen flex items-center justify-center px-6 relative pt-16 md:pt-20 mt-10">
       <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-30 dark:opacity-40">
         <div className="absolute inset-0"
           style={{

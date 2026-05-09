@@ -7,9 +7,12 @@ import { motion } from 'framer-motion';
 import { navItems as navigationItems }  from '../../config/navigation'
 import { LanguageSwitcher } from '../ui/LanguageSwitcher';
 import { useTranslations } from 'next-intl';
+import { usePublicSettings } from '@/contexts/PublicSettingsContext';
+import { StrapiImage } from '../ui';
 
 export function Header() {
   const t = useTranslations();
+  const { settings } = usePublicSettings();
   const { isDark, toggleTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -28,11 +31,10 @@ export function Header() {
     : navigationItems;
 
   return (
-    <nav id="#home" className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
         <a href='/' className="flex items-center gap-2 cursor-pointer">
-          <span className="font-mono text-xl font-semibold">&lt;/&gt;</span>dev
-          <span className="font-mono text-xl font-semibold">&lt;/&gt;</span>
+          <StrapiImage image={settings?.logo} className='w-10 dark:invert'/>
         </a>
 
         <div className="hidden md:flex items-center gap-8">
@@ -89,7 +91,7 @@ export function Header() {
                 {t(`${link?.translationKey}`)}
               </a>
             ))}
-             <LanguageSwitcher/>
+             <LanguageSwitcher setIsOpen={setIsOpen}/>
             <button
               onClick={() => { toggleTheme(); setIsOpen(false); }}
               className="flex items-center gap-3 py-3 text-muted-foreground hover:text-foreground"
@@ -99,13 +101,13 @@ export function Header() {
                   isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />
 
                 }
-                  {isDark ? 'Light Mode' : 'Dark Mode'}
+                  {isDark ? t('textLightMode') : t('textDarkMode')}
 
                 </>
 
               ) : (<>
                 <Moon className="w-5 h-5" />
-                Light Mode
+                {t('textLightMode')}
               </>
 
               )}
