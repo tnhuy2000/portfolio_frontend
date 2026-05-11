@@ -111,6 +111,7 @@ export const LanguageSwitcher = ({ setIsOpen }: LanguageSwitcherType) => {
         </p>
         {languages.map((lang) => (
           <button
+            aria-label="button-change-language"
             key={lang.code}
             onClick={() => handleLanguageChange(lang.code)}
             className={`flex items-center gap-3 w-full p-2 rounded-lg transition-colors ${locale === lang.code ? 'bg-accent text-primary' : 'hover:bg-accent/50'

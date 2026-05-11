@@ -8,6 +8,7 @@ import { Project } from '@/types';
 import { StrapiImage } from '../ui/StrapiImage';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTranslations } from 'next-intl';
+import Link from 'next/link';
 
 const Projects = () => {
   const t = useTranslations();
@@ -79,14 +80,14 @@ const Projects = () => {
 
                   <div className="flex gap-4 text-sm">
                     {githubLink && (
-                      <a href={githubLink} target="_blank" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
+                      <Link href={githubLink} target="_blank" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
                         <Github className="w-4 h-4" /> {t('projects.textCode')}
-                      </a>
+                      </Link>
                     )}
                     {demoLink && (
-                      <a href={demoLink} target="_blank" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
+                      <Link href={demoLink} target="_blank" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
                         <ExternalLink className="w-4 h-4" /> {t('projects.textDemo')}
-                      </a>
+                      </Link>
                     )}
                   </div>
                 </div>

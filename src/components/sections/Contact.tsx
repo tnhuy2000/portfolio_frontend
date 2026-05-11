@@ -6,7 +6,9 @@ import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail, Send } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
+import Link from "next/link";
 
+const MotionLink = motion(Link);
 const Contact = () => {
   const t = useTranslations();
   const { locale } = useLanguage();
@@ -43,7 +45,7 @@ const Contact = () => {
         </motion.div>
 
         <div className="grid md:grid-cols-3 gap-6 mb-12">
-          <motion.a
+          <MotionLink
             href={contactInfo?.email}
             target="_blank"
             rel="noopener noreferrer"
@@ -56,11 +58,11 @@ const Contact = () => {
             <div className={`inline-flex p-5 rounded-2xl bg-muted mb-6 group-hover:scale-110 transition-transform text-chart-1`}>
               <Mail className="w-10 h-10" />
             </div>
-            <h4 className="text-xl font-semibold mb-2">Email</h4>
+            <div className="text-xl font-semibold mb-2">Email</div>
             {/* <p className="text-muted-foreground font-mono break-all">{contactInfo?.email}</p> */}
-          </motion.a>
+          </MotionLink>
 
-          <motion.a
+          <MotionLink
             href={contactInfo?.linkedin}
             target="_blank"
             rel="noopener noreferrer"
@@ -74,10 +76,10 @@ const Contact = () => {
             <div className={`inline-flex p-5 rounded-2xl bg-muted mb-6 group-hover:scale-110 transition-transform text-chart-2`}>
               <Linkedin className="w-10 h-10" />
             </div>
-            <h4 className="text-xl font-semibold mb-2">LinkedIn</h4>
+            <div className="text-xl font-semibold mb-2">LinkedIn</div>
             {/* <p className="text-muted-foreground font-mono break-all">{contactInfo?.linkedin}</p> */}
-          </motion.a>
-          <motion.a
+          </MotionLink>
+          <MotionLink
             href={contactInfo?.github}
             target="_blank"
             rel="noopener noreferrer"
@@ -91,13 +93,13 @@ const Contact = () => {
             <div className={`inline-flex p-5 rounded-2xl bg-muted mb-6 group-hover:scale-110 transition-transform text-chart-1`}>
               <Github className="w-10 h-10" />
             </div>
-            <h4 className="text-xl font-semibold mb-2">GitHub</h4>
+            <div className="text-xl font-semibold mb-2">GitHub</div>
             {/* <p className="text-muted-foreground font-mono break-all">{contactInfo?.github}</p> */}
-          </motion.a>
+          </MotionLink>
         </div>
 
         <div className="text-center">
-          <motion.a
+          <MotionLink
             href={`${contactInfo?.buttonUrl}`}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -105,7 +107,7 @@ const Contact = () => {
           >
             <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             {contactInfo?.buttonText}
-          </motion.a>
+          </MotionLink>
         </div>
 
         <div className="pt-16 border-t border-border text-center mt-16">

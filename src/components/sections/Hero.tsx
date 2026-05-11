@@ -6,7 +6,9 @@ import { getProfile } from '@/lib/api';
 import { Profile } from '@/types';
 import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 import { useLanguage } from '@/contexts/LanguageContext';
+import Link from "next/link";
 
+const MotionLink = motion(Link);
 export default function Hero() {
   const { locale } = useLanguage();
   const [profile, setProfile] = useState<Profile | null>(null);
@@ -142,23 +144,23 @@ export default function Hero() {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <motion.a
-              href={profile?.buttonText1Url}
+            <MotionLink
+              href={profile?.buttonText1Url || "/"}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="px-10 py-4 bg-primary text-primary-foreground rounded-2xl font-mono flex items-center justify-center gap-3 shadow-lg hover:shadow-xl transition-all"
             >
               {profile?.buttonText1} <span className="text-xl">→</span>
-            </motion.a>
+            </MotionLink>
 
-            <motion.a
-              href={profile?.buttonText2Url}
+            <MotionLink
+              href={profile?.buttonText2Url || "/"}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="px-10 py-4 border border-border hover:bg-accent rounded-2xl font-mono flex items-center justify-center transition-all"
             >
               {profile?.buttonText2}
-            </motion.a>
+            </MotionLink>
           </div>
 
           <div className="flex gap-6 justify-center">
@@ -167,9 +169,9 @@ export default function Hero() {
               { Icon: Github, href: `${profile?.gitHubUrl}` },
               { Icon: Linkedin, href: `${profile?.linkedInUrl}` },
             ].map(({ Icon, href }, i) => (
-              <motion.a
+              <MotionLink
                 key={i}
-                href={href}
+                href={href || "/"}
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.25, y: -2 }}
@@ -177,7 +179,7 @@ export default function Hero() {
                 className="p-4 bg-accent hover:rotate-15 hover:bg-accent/80 rounded-2xl transition-transform duration-200"
               >
                 <Icon className="w-6 h-6" />
-              </motion.a>
+              </MotionLink>
             ))}
           </div>
         </div>

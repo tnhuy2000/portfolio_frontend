@@ -57,6 +57,7 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
               {this.state.error?.message || 'An unexpected error occurred'}
             </p>
             <button
+              aria-label="button-error"
               onClick={() => this.setState({ hasError: false, error: null })}
               className="mt-6 w-full bg-primary text-white py-2 px-4 rounded-md hover:bg-primary/90 transition"
             >

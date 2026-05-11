@@ -9,6 +9,7 @@ import { LanguageSwitcher } from '../ui/LanguageSwitcher';
 import { useTranslations } from 'next-intl';
 import { usePublicSettings } from '@/contexts/PublicSettingsContext';
 import { StrapiImage } from '../ui';
+import Link from 'next/link';
 
 export function Header() {
   const t = useTranslations();
@@ -33,20 +34,20 @@ export function Header() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        <a href='/' className="flex items-center gap-2 cursor-pointer">
+        <Link  href='/' className="flex items-center gap-2 cursor-pointer">
           <StrapiImage image={settings?.logo} className='w-10 dark:invert'/>
-        </a>
+        </Link >
 
         <div className="hidden md:flex items-center gap-8">
           {navItems?.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               className="text-muted-foreground hover:text-foreground transition-colors relative group"
             >
               {t(`${link?.translationKey}`)}
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all" />
-            </a>
+            </Link>
           ))}
           <LanguageSwitcher/>
           <motion.button
@@ -65,6 +66,7 @@ export function Header() {
         </div>
 
         <button
+          aria-label="button-menu"
           onClick={() => setIsOpen(!isOpen)}
           className="md:hidden p-3 rounded-2xl bg-accent"
         >
@@ -82,17 +84,18 @@ export function Header() {
         >
           <div className="px-6 py-6 flex flex-col gap-4">
             {navItems.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
                 className="py-2 text-muted-foreground hover:text-foreground"
               >
                 {t(`${link?.translationKey}`)}
-              </a>
+              </Link>
             ))}
              <LanguageSwitcher setIsOpen={setIsOpen}/>
             <button
+              aria-label="button-mode"
               onClick={() => { toggleTheme(); setIsOpen(false); }}
               className="flex items-center gap-3 py-3 text-muted-foreground hover:text-foreground"
             >

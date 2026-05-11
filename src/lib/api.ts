@@ -18,14 +18,14 @@ export async function getContactInfo() {
 
 export async function getProject() {
   const response = await fetchStrapiClient<{ data: Project[] }>(
-    '/projects?populate=*'
+    '/projects?populate=*&sort=order:asc'
   );
   return response.data;
 }
 
 export async function getSkills() {
   const response = await fetchStrapiClient<{ data: Skill[] }>(
-    '/skills?populate=*'
+    '/skills?populate=*&sort=order:asc'
   );
   return response.data;
 }
