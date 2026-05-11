@@ -8,7 +8,7 @@ import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Link from "next/link";
 
-const MotionLink = motion(Link);
+const MotionLink = motion.create(Link);
 export default function Hero() {
   const { locale } = useLanguage();
   const [profile, setProfile] = useState<Profile | null>(null);
@@ -145,7 +145,7 @@ export default function Hero() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <MotionLink
-              href={profile?.buttonText1Url || "/"}
+              href={profile?.buttonText1Url || '/'}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="px-10 py-4 bg-primary text-primary-foreground rounded-2xl font-mono flex items-center justify-center gap-3 shadow-lg hover:shadow-xl transition-all"
@@ -154,7 +154,7 @@ export default function Hero() {
             </MotionLink>
 
             <MotionLink
-              href={profile?.buttonText2Url || "/"}
+              href={profile?.buttonText2Url || '/'}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="px-10 py-4 border border-border hover:bg-accent rounded-2xl font-mono flex items-center justify-center transition-all"
@@ -171,7 +171,7 @@ export default function Hero() {
             ].map(({ Icon, href }, i) => (
               <MotionLink
                 key={i}
-                href={href || "/"}
+                href={href || '/'}
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.25, y: -2 }}

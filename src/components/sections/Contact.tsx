@@ -8,7 +8,7 @@ import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import Link from "next/link";
 
-const MotionLink = motion(Link);
+const MotionLink = motion.create(Link);
 const Contact = () => {
   const t = useTranslations();
   const { locale } = useLanguage();
@@ -46,7 +46,7 @@ const Contact = () => {
 
         <div className="grid md:grid-cols-3 gap-6 mb-12">
           <MotionLink
-            href={contactInfo?.email}
+            href={contactInfo?.email || '/'}
             target="_blank"
             rel="noopener noreferrer"
             initial={{ opacity: 0, y: 30 }}
@@ -63,7 +63,7 @@ const Contact = () => {
           </MotionLink>
 
           <MotionLink
-            href={contactInfo?.linkedin}
+            href={contactInfo?.linkedin || '/'}
             target="_blank"
             rel="noopener noreferrer"
             initial={{ opacity: 0, y: 30 }}
@@ -80,7 +80,7 @@ const Contact = () => {
             {/* <p className="text-muted-foreground font-mono break-all">{contactInfo?.linkedin}</p> */}
           </MotionLink>
           <MotionLink
-            href={contactInfo?.github}
+            href={contactInfo?.github || '/'}
             target="_blank"
             rel="noopener noreferrer"
             initial={{ opacity: 0, y: 30 }}
@@ -100,7 +100,7 @@ const Contact = () => {
 
         <div className="text-center">
           <MotionLink
-            href={`${contactInfo?.buttonUrl}`}
+            href={contactInfo?.buttonUrl || '/'}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="inline-flex items-center gap-3 px-10 py-4 bg-gradient-to-r from-primary to-chart-1 text-primary-foreground rounded-2xl shadow-lg hover:shadow-2xl transition-all font-mono text-lg group"
