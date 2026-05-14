@@ -2,27 +2,34 @@
 
 import { useEffect, useState } from 'react';
 import { LoadingScreen } from './loading-spinner';
+import { usePublicSettings } from '@/contexts/PublicSettingsContext';
+import { AnimatePresence } from 'framer-motion';
+import { subscribeClientApiActivity } from '@/lib/strapi';
 
 export default function ClientLoadingWrapper({
   children
 }: {
   children: React.ReactNode
 }) {
+  const { isLoading: isSettingsLoading } = usePublicSettings();
   const [isLoading, setIsLoading] = useState(true);
+  const [activeApiRequests, setActiveApiRequests] = useState(0);
+
+  useEffect(() => subscribeClientApiActivity(setActiveApiRequests), []);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1500);
+    if (isSettingsLoading || activeApiRequests > 0) return;
 
-    return () => clearTimeout(timer);
-  }, []);
+    const timer = window.setTimeout(() => {
+      setIsLoading(false);
+    }, 300);
+
+    return () => window.clearTimeout(timer);
+  }, [activeApiRequests, isSettingsLoading]);
 
   return (
     <>
-      {isLoading && (
-        <LoadingScreen onLoadingComplete={() => setIsLoading(false)} />
-      )}
+      <AnimatePresence>{isLoading && <LoadingScreen />}</AnimatePresence>
 
       <div
         className={`transition-opacity duration-500 ${

@@ -1,44 +1,24 @@
 'use client'
 
 import { motion } from 'framer-motion';
-import { memo, useEffect, useState } from 'react';
+import { memo } from 'react';
 import { StrapiImage } from '../ui/StrapiImage';
-import { Profile, Stat } from '@/types';
 import { getProfile, getStat } from '@/lib/api';
 import { BlocksRenderer } from '@strapi/blocks-react-renderer';
-import { useLanguage } from '@/contexts/LanguageContext';
 import { useTranslations } from 'next-intl';
+import { useLazyApiData } from '@/hooks/useLazyApiData';
 
 const About = memo(() => {
   const t = useTranslations();
-  const { locale } = useLanguage();
-  const [profile, setProfile] = useState<Profile | null>(null);
-  const [statData, setStatData] = useState<Stat[]>([]);
+  const { data, ref } = useLazyApiData(async () => {
+    const [profile, statData] = await Promise.all([getProfile(), getStat()]);
+    return { profile, statData };
+  });
+  const profile = data?.profile ?? null;
+  const statData = data?.statData ?? [];
 
-  useEffect(() => {
-    async function fetchProfile() {
-      try {
-        const data = await getProfile();
-        setProfile(data);
-      } catch (error) {
-        console.error("Failed to fetch profile:", error);
-      }
-    }
-
-
-    async function fetchStat() {
-      try {
-        const data = await getStat();
-        setStatData(data);
-      } catch (error) {
-        console.error("Failed to fetch stat:", error);
-      }
-    }
-    fetchProfile();
-    fetchStat();
-  }, [locale]);
   return (
-    <section id="about" className="py-24 px-6 scroll-mt-20">
+    <section ref={ref} id="about" className="py-24 px-6 scroll-mt-20">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

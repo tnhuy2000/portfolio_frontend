@@ -7,13 +7,13 @@ import { Be_Vietnam_Pro } from "next/font/google";
 import ApolloProvider from "@/lib/apollo-provider";
 import { Footer, Header } from "@/components/layout";
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
+import { getLocale, getMessages } from 'next-intl/server';
 import { PublicSettingsProvider } from '@/contexts/PublicSettingsContext';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import ScrollToTop from '@/components/ui/ScrollToTop';
 import ClientLoadingWrapper from '@/components/shared/ClientLoadingWrapper';
 import { LanguageProvider } from '@/contexts/LanguageContext';
-import { getPublicSettings } from '@/lib/api';
+import { getPublicSettingsServer } from '@/lib/api';
 import { generateSeoMetadata } from '@/config/site';
 const beVietnamPro = Be_Vietnam_Pro({
   subsets: ['latin', 'vietnamese'],
@@ -24,10 +24,16 @@ const beVietnamPro = Be_Vietnam_Pro({
 
 
 export async function generateMetadata():Promise<Metadata> {
-
-  const response =
-    await getPublicSettings();
-  return generateSeoMetadata(response);
+  try {
+    const response = await getPublicSettingsServer();
+    return generateSeoMetadata(response);
+  } catch (error) {
+    console.error('Error generating metadata:', error);
+    return {
+      title: 'Portfolio',
+      description: 'Portfolio',
+    };
+  }
 }
 
 export default async function RootLayout({
@@ -36,14 +42,19 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const messages = await getMessages();
+  const locale = await getLocale();
+  const initialSettings = await getPublicSettingsServer().catch((error) => {
+    console.error('Error fetching initial settings:', error);
+    return undefined;
+  });
 
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body suppressHydrationWarning className={`${beVietnamPro.className}`}>
         <NextIntlClientProvider messages={messages}>
           <ApolloProvider>
-            <LanguageProvider>
-              <PublicSettingsProvider>
+            <LanguageProvider initialLocale={locale as 'en' | 'vi'}>
+              <PublicSettingsProvider initialSettings={initialSettings}>
                 <ThemeProvider>
                   <ClientLoadingWrapper>
                     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
@@ -66,6 +77,3 @@ export default async function RootLayout({
     </html>
   );
 }
-
-
-

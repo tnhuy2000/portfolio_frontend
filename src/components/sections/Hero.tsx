@@ -3,27 +3,13 @@ import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { Terminal, Mail, Github, Linkedin } from 'lucide-react';
 import { getProfile } from '@/lib/api';
-import { Profile } from '@/types';
 import { BlocksRenderer } from '@strapi/blocks-react-renderer';
-import { useLanguage } from '@/contexts/LanguageContext';
 import Link from "next/link";
+import { useLazyApiData } from '@/hooks/useLazyApiData';
 
 const MotionLink = motion.create(Link);
 export default function Hero() {
-  const { locale } = useLanguage();
-  const [profile, setProfile] = useState<Profile | null>(null);
-
-  useEffect(() => {
-    async function fetchProfile() {
-      try {
-        const data = await getProfile();
-        setProfile(data);
-      } catch (error) {
-        console.error("Failed to fetch profile:", error);
-      }
-    }
-    fetchProfile();
-  }, [locale]);
+  const { data: profile } = useLazyApiData(getProfile, { enabled: true });
   const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
 

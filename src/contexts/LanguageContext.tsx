@@ -23,19 +23,20 @@ export const useLanguage = () => {
 
 interface LanguageProviderProps {
   children: ReactNode;
+  initialLocale?: Locale;
 }
 
-export const LanguageProvider = ({ children }: LanguageProviderProps) => {
-  const [locale, setLocale] = useState<Locale>('en'); // Khởi tạo mặc định trước
+export const LanguageProvider = ({ children, initialLocale = 'en' }: LanguageProviderProps) => {
+  const [locale, setLocale] = useState<Locale>(initialLocale); // Khởi tạo mặc định trước
   const router = useRouter();
 
   // Load từ localStorage sau khi component mount (Client-side)
   useEffect(() => {
     const savedLocale2 = Cookies.get('NEXT_LOCALE') as Locale | undefined;
-    if (savedLocale2) {
+    if (savedLocale2 && savedLocale2 !== locale) {
       setLocale(savedLocale2);
     }
-  }, []);
+  }, [locale]);
 
   const changeLanguage = (newLocale: Locale) => {
     setLocale(newLocale);

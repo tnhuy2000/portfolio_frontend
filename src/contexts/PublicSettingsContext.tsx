@@ -1,5 +1,5 @@
 "use client"
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode, useCallback, useRef } from 'react';
 import { getPublicSettings } from '@/lib/api';
 import { Setting } from '@/types';
 import { useLanguage } from './LanguageContext';
@@ -23,14 +23,16 @@ export const usePublicSettings = () => {
 
 interface PublicSettingsProviderProps {
   children: ReactNode;
+  initialSettings?: Setting;
 }
 
-export const PublicSettingsProvider = ({ children }: PublicSettingsProviderProps) => {
+export const PublicSettingsProvider = ({ children, initialSettings }: PublicSettingsProviderProps) => {
   const { locale } = useLanguage();
-  const [settings, setSettings] = useState<Setting>();
-  const [isLoading, setIsLoading] = useState(true);
+  const [settings, setSettings] = useState<Setting | undefined>(initialSettings);
+  const [isLoading, setIsLoading] = useState(!initialSettings);
+  const skippedInitialFetchRef = useRef(Boolean(initialSettings));
 
-  const fetchSettings = async () => {
+  const fetchSettings = useCallback(async () => {
     try {
       setIsLoading(true);
       const settings = await getPublicSettings()
@@ -42,12 +44,17 @@ export const PublicSettingsProvider = ({ children }: PublicSettingsProviderProps
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
   // Fetch settings on mount
   useEffect(() => {
+    if (skippedInitialFetchRef.current) {
+      skippedInitialFetchRef.current = false;
+      return;
+    }
+
     fetchSettings();
-  }, [locale]);
+  }, [fetchSettings, locale]);
 
   const value = {
     settings,

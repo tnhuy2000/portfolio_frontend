@@ -1,5 +1,33 @@
 import { getLocale } from "next-intl/server";
 import Cookies from 'js-cookie';
+
+const clientResponseCache = new Map<string, unknown>();
+const clientRequestCache = new Map<string, Promise<unknown>>();
+const clientActivityListeners = new Set<(activeRequests: number) => void>();
+let activeClientRequests = 0;
+
+function notifyClientActivity() {
+  clientActivityListeners.forEach((listener) => listener(activeClientRequests));
+}
+
+function trackClientRequest<T>(request: Promise<T>) {
+  activeClientRequests += 1;
+  notifyClientActivity();
+
+  return request.finally(() => {
+    activeClientRequests = Math.max(0, activeClientRequests - 1);
+    notifyClientActivity();
+  });
+}
+
+export function subscribeClientApiActivity(listener: (activeRequests: number) => void) {
+  clientActivityListeners.add(listener);
+  listener(activeClientRequests);
+
+  return () => {
+    clientActivityListeners.delete(listener);
+  };
+}
 // Server-only fetch (dùng trong Server Component)
 export async function fetchStrapiServer<T>(
   endpoint: string,
@@ -14,9 +42,31 @@ export async function fetchStrapiClient<T>(
   endpoint: string,
   options: RequestInit = {}
 ) {
-  
-  let currentLocale = Cookies.get('NEXT_LOCALE') || 'en';
-  return fetchStrapiBase<T>(endpoint, currentLocale, options);
+  const currentLocale = Cookies.get('NEXT_LOCALE') || 'en';
+  const cacheKey = `${currentLocale}:${endpoint}`;
+
+  if (clientResponseCache.has(cacheKey)) {
+    return clientResponseCache.get(cacheKey) as T;
+  }
+
+  const existingRequest = clientRequestCache.get(cacheKey);
+  if (existingRequest) {
+    return existingRequest as Promise<T>;
+  }
+
+  const request = trackClientRequest(
+    fetchStrapiBase<T>(endpoint, currentLocale, options)
+      .then((response) => {
+        clientResponseCache.set(cacheKey, response);
+        return response;
+      })
+      .finally(() => {
+        clientRequestCache.delete(cacheKey);
+      })
+  );
+
+  clientRequestCache.set(cacheKey, request);
+  return request;
 }
 
 // Hàm chung

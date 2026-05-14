@@ -1,5 +1,5 @@
 import { Category, ContactInfo, Profile, Project, Setting, Skill, Stat } from "@/types";
-import { fetchStrapiClient} from "./strapi";
+import { fetchStrapiClient, fetchStrapiServer } from "./strapi";
 
 
 export async function getProfile() {
@@ -47,6 +47,13 @@ export async function getCategories() {
 
 export async function getPublicSettings() {
   const response = await fetchStrapiClient<{ data: Setting }>(
+    '/setting?populate=*'
+  );
+  return response.data;
+}
+
+export async function getPublicSettingsServer() {
+  const response = await fetchStrapiServer<{ data: Setting }>(
     '/setting?populate=*'
   );
   return response.data;

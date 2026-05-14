@@ -1,31 +1,16 @@
-import { useLanguage } from '@/contexts/LanguageContext';
+import { useLazyApiData } from '@/hooks/useLazyApiData';
 import { getCategories } from '@/lib/api';
 import { Category, Skill } from '@/types';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
-import { useEffect, useState } from 'react';
 
 
 const Skills = () => {
   const t = useTranslations();
-  const { locale } = useLanguage();
-  const [categories, setCategories] = useState<Category[]>([]);
+  const { data: categories = [], ref } = useLazyApiData<Category[]>(getCategories);
 
-  useEffect(() => {
-
-    async function fetchCategories() {
-      try {
-        const data = await getCategories();
-        setCategories(data);
-      } catch (error) {
-        console.error("Failed to fetch skills:", error);
-      }
-    }
-
-    fetchCategories();
-  }, [locale]);
   return (
-    <section id="skills" className="py-24 px-6 scroll-mt-20">
+    <section ref={ref} id="skills" className="py-24 px-6 scroll-mt-20">
       <div className="max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

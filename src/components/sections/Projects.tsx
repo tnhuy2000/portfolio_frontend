@@ -2,34 +2,19 @@
 import { motion } from 'framer-motion';
 import { ExternalLink, Github } from 'lucide-react';
 import { getProjectColor } from '@/utils';
-import { useEffect, useState } from 'react';
 import { getProject } from '@/lib/api';
 import { Project } from '@/types';
 import { StrapiImage } from '../ui/StrapiImage';
-import { useLanguage } from '@/contexts/LanguageContext';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
+import { useLazyApiData } from '@/hooks/useLazyApiData';
 
 const Projects = () => {
   const t = useTranslations();
-  const { locale } = useLanguage();
-  const [projects, setProjects] = useState<Project[]>([]);
-
-  useEffect(() => {
-    async function fetchProject() {
-      try {
-        const data = await getProject();
-        setProjects(data);
-      } catch (error) {
-        console.error("Failed to fetch project:", error);
-      }
-    }
-
-    fetchProject();
-  }, [locale]);
+  const { data: projects = [], ref } = useLazyApiData<Project[]>(getProject);
 
   return (
-    <section id="projects" className="py-24 px-6 bg-secondary/30 relative scroll-mt-20">
+    <section ref={ref} id="projects" className="py-24 px-6 bg-secondary/30 relative scroll-mt-20">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
