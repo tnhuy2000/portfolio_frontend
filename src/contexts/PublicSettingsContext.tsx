@@ -46,7 +46,13 @@ export const PublicSettingsProvider = ({ children, initialSettings }: PublicSett
     }
   }, []);
 
-  // Fetch settings on mount
+  useEffect(() => {
+    if (!initialSettings) return;
+
+    setSettings(initialSettings);
+    setIsLoading(false);
+  }, [initialSettings]);
+
   useEffect(() => {
     if (skippedInitialFetchRef.current) {
       skippedInitialFetchRef.current = false;

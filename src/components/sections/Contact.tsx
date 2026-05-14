@@ -29,7 +29,7 @@ const Contact = () => {
 
         <div className="grid md:grid-cols-3 gap-6 mb-12">
           <MotionLink
-            href={contactInfo?.email || '/'}
+            href={`mailto:${contactInfo?.email || '/'}`}
             target="_blank"
             rel="noopener noreferrer"
             initial={{ opacity: 0, y: 30 }}

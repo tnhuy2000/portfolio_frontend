@@ -47,14 +47,16 @@ export async function getCategories() {
 
 export async function getPublicSettings() {
   const response = await fetchStrapiClient<{ data: Setting }>(
-    '/setting?populate=*'
+    '/setting?populate=*',
+    { cache: 'no-store' }
   );
   return response.data;
 }
 
 export async function getPublicSettingsServer() {
   const response = await fetchStrapiServer<{ data: Setting }>(
-    '/setting?populate=*'
+    '/setting?populate=*',
+    { cache: 'no-store' }
   );
   return response.data;
 }

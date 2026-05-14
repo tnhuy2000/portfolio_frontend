@@ -44,20 +44,23 @@ export async function fetchStrapiClient<T>(
 ) {
   const currentLocale = Cookies.get('NEXT_LOCALE') || 'en';
   const cacheKey = `${currentLocale}:${endpoint}`;
+  const shouldBypassClientCache = options.cache === 'no-store';
 
-  if (clientResponseCache.has(cacheKey)) {
+  if (!shouldBypassClientCache && clientResponseCache.has(cacheKey)) {
     return clientResponseCache.get(cacheKey) as T;
   }
 
   const existingRequest = clientRequestCache.get(cacheKey);
-  if (existingRequest) {
+  if (!shouldBypassClientCache && existingRequest) {
     return existingRequest as Promise<T>;
   }
 
   const request = trackClientRequest(
     fetchStrapiBase<T>(endpoint, currentLocale, options)
       .then((response) => {
-        clientResponseCache.set(cacheKey, response);
+        if (!shouldBypassClientCache) {
+          clientResponseCache.set(cacheKey, response);
+        }
         return response;
       })
       .finally(() => {
@@ -78,6 +81,7 @@ async function fetchStrapiBase<T>(
   const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
   
   const url = `${STRAPI_URL}/api${endpoint.startsWith('/') ? endpoint : '/' + endpoint}&locale=${locale}`;
+  const shouldUseDefaultRevalidate = options.cache !== 'no-store' && !options.next;
 
   const res = await fetch(url, {
     ...options,
@@ -85,7 +89,7 @@ async function fetchStrapiBase<T>(
       'Content-Type': 'application/json',
       ...options.headers,
     },
-    next: options.next || { revalidate: 3600 },
+    ...(shouldUseDefaultRevalidate ? { next: { revalidate: 3600 } } : {}),
   });
 
   if (!res.ok) {
