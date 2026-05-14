@@ -5,6 +5,7 @@ import { LoadingScreen } from './loading-spinner';
 import { usePublicSettings } from '@/contexts/PublicSettingsContext';
 import { AnimatePresence } from 'framer-motion';
 import { subscribeClientApiActivity } from '@/lib/strapi';
+import { usePortfolioData } from '@/contexts/PortfolioDataContext';
 
 export default function ClientLoadingWrapper({
   children
@@ -12,20 +13,21 @@ export default function ClientLoadingWrapper({
   children: React.ReactNode
 }) {
   const { isLoading: isSettingsLoading } = usePublicSettings();
+  const { isLoading: isPortfolioLoading } = usePortfolioData();
   const [isLoading, setIsLoading] = useState(true);
   const [activeApiRequests, setActiveApiRequests] = useState(0);
 
   useEffect(() => subscribeClientApiActivity(setActiveApiRequests), []);
 
   useEffect(() => {
-    if (isSettingsLoading || activeApiRequests > 0) return;
+    if (isSettingsLoading || isPortfolioLoading || activeApiRequests > 0) return;
 
     const timer = window.setTimeout(() => {
       setIsLoading(false);
     }, 300);
 
     return () => window.clearTimeout(timer);
-  }, [activeApiRequests, isSettingsLoading]);
+  }, [activeApiRequests, isPortfolioLoading, isSettingsLoading]);
 
   return (
     <>

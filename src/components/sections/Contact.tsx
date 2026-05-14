@@ -1,6 +1,5 @@
 import { usePublicSettings } from '@/contexts/PublicSettingsContext';
-import { useLazyApiData } from '@/hooks/useLazyApiData';
-import { getContactInfo } from '@/lib/api';
+import { usePortfolioData } from '@/contexts/PortfolioDataContext';
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail, Send } from 'lucide-react';
 import Link from "next/link";
@@ -8,10 +7,10 @@ import Link from "next/link";
 const MotionLink = motion.create(Link);
 const Contact = () => {
   const { settings } = usePublicSettings();
-  const { data: contactInfo, ref } = useLazyApiData(getContactInfo);
+  const { contactInfo } = usePortfolioData();
 
   return (
-    <section ref={ref} id="contact" className="py-24 px-6 bg-secondary/30 relative overflow-hidden scroll-mt-20">
+    <section id="contact" className="py-24 px-6 bg-secondary/30 relative overflow-hidden scroll-mt-20">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
 
       <div className="max-w-4xl mx-auto relative z-10">

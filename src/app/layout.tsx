@@ -13,6 +13,7 @@ import { ThemeProvider } from '@/contexts/ThemeContext';
 import ScrollToTop from '@/components/ui/ScrollToTop';
 import ClientLoadingWrapper from '@/components/shared/ClientLoadingWrapper';
 import { LanguageProvider } from '@/contexts/LanguageContext';
+import { PortfolioDataProvider } from '@/contexts/PortfolioDataContext';
 import { getPublicSettingsServer } from '@/lib/api';
 import { generateSeoMetadata } from '@/config/site';
 const beVietnamPro = Be_Vietnam_Pro({
@@ -56,16 +57,18 @@ export default async function RootLayout({
             <LanguageProvider initialLocale={locale as 'en' | 'vi'}>
               <PublicSettingsProvider initialSettings={initialSettings}>
                 <ThemeProvider>
-                  <ClientLoadingWrapper>
-                    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-                      <Header />
-                      <main>
-                        {children}
-                      </main>
-                      <Footer />
-                      <ScrollToTop />
-                    </div>
-                  </ClientLoadingWrapper>
+                  <PortfolioDataProvider>
+                    <ClientLoadingWrapper>
+                      <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+                        <Header />
+                        <main>
+                          {children}
+                        </main>
+                        <Footer />
+                        <ScrollToTop />
+                      </div>
+                    </ClientLoadingWrapper>
+                  </PortfolioDataProvider>
                 </ThemeProvider>
 
               </PublicSettingsProvider>

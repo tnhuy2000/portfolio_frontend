@@ -2,14 +2,13 @@
 import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { Terminal, Mail, Github, Linkedin } from 'lucide-react';
-import { getProfile } from '@/lib/api';
 import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 import Link from "next/link";
-import { useLazyApiData } from '@/hooks/useLazyApiData';
+import { usePortfolioData } from '@/contexts/PortfolioDataContext';
 
 const MotionLink = motion.create(Link);
 export default function Hero() {
-  const { data: profile } = useLazyApiData(getProfile, { enabled: true });
+  const { profile } = usePortfolioData();
   const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
 

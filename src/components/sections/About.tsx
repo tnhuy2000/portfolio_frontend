@@ -3,22 +3,16 @@
 import { motion } from 'framer-motion';
 import { memo } from 'react';
 import { StrapiImage } from '../ui/StrapiImage';
-import { getProfile, getStat } from '@/lib/api';
 import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 import { useTranslations } from 'next-intl';
-import { useLazyApiData } from '@/hooks/useLazyApiData';
+import { usePortfolioData } from '@/contexts/PortfolioDataContext';
 
 const About = memo(() => {
   const t = useTranslations();
-  const { data, ref } = useLazyApiData(async () => {
-    const [profile, statData] = await Promise.all([getProfile(), getStat()]);
-    return { profile, statData };
-  });
-  const profile = data?.profile ?? null;
-  const statData = data?.statData ?? [];
+  const { profile, stats } = usePortfolioData();
 
   return (
-    <section ref={ref} id="about" className="py-24 px-6 scroll-mt-20">
+    <section id="about" className="py-24 px-6 scroll-mt-20">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -77,7 +71,7 @@ const About = memo(() => {
 
         {/* Stats Section */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {statData?.map((stat, index) => (
+          {stats?.map((stat, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 30 }}

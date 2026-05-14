@@ -2,19 +2,17 @@
 import { motion } from 'framer-motion';
 import { ExternalLink, Github } from 'lucide-react';
 import { getProjectColor } from '@/utils';
-import { getProject } from '@/lib/api';
-import { Project } from '@/types';
 import { StrapiImage } from '../ui/StrapiImage';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { useLazyApiData } from '@/hooks/useLazyApiData';
+import { usePortfolioData } from '@/contexts/PortfolioDataContext';
 
 const Projects = () => {
   const t = useTranslations();
-  const { data: projects = [], ref } = useLazyApiData<Project[]>(getProject);
+  const { projects } = usePortfolioData();
 
   return (
-    <section ref={ref} id="projects" className="py-24 px-6 bg-secondary/30 relative scroll-mt-20">
+    <section id="projects" className="py-24 px-6 bg-secondary/30 relative scroll-mt-20">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

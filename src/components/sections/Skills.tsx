@@ -1,16 +1,15 @@
-import { useLazyApiData } from '@/hooks/useLazyApiData';
-import { getCategories } from '@/lib/api';
-import { Category, Skill } from '@/types';
+import { usePortfolioData } from '@/contexts/PortfolioDataContext';
+import { Skill } from '@/types';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 
 
 const Skills = () => {
   const t = useTranslations();
-  const { data: categories = [], ref } = useLazyApiData<Category[]>(getCategories);
+  const { categories } = usePortfolioData();
 
   return (
-    <section ref={ref} id="skills" className="py-24 px-6 scroll-mt-20">
+    <section id="skills" className="py-24 px-6 scroll-mt-20">
       <div className="max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
