@@ -83,7 +83,7 @@ const About = memo(() => {
               <div className={`inline-flex p-4 rounded-2xl mb-4 group-hover:scale-110 transition-transform ${stat.bgColor}`}>
                 <div className={`${stat.color}`} dangerouslySetInnerHTML={{ __html: stat?.iconSVG || '' }}/>
               </div>
-              <div className="font-mono text-3xl font-semibold mb-1">{stat.title}</div>
+              <div className="font-mono text-2xl font-semibold mb-1">{stat.title}</div>
               <div className="text-muted-foreground text-sm">{stat.label}</div>
             </motion.div>
           ))}
