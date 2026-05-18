@@ -14,7 +14,7 @@ export interface Profile {
   roles: string[];
   location: string;
   skills: string[];
-  passion: string;
+  experience: string;
   avatar?: {
     url: string;
     alternativeText?: string;

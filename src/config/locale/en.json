@@ -24,7 +24,7 @@
   },
   "profile": {
     "textAboutMe": "About Me",
-    "subTitle": "// Who is behind the code?"
+    "subTitle": "// Some things about me and my development"
   },
   "projects": {
     "title": "Feature Project",
@@ -34,7 +34,7 @@
   },
   "skills": {
     "title": "Skills & Technologies",
-    "subTitle": "// My technical arsenal"
+    "subTitle": "// Technical skills and development tools"
   },
   "blog": {
     "title": "Blog",

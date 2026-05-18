@@ -12,7 +12,7 @@
   "nav": {
     "home": "Trang chủ",
     "about": "Giới thiệu",
-    "skills": "Kĩ năng",
+    "skills": "Kỹ năng",
     "projects": "Dự án",
     "blog": "Blog",
     "contact": "Liên hệ"
@@ -24,7 +24,7 @@
   },
   "profile": {
     "textAboutMe": "Giới thiệu về tôi",
-    "subTitle": "Ai là người đứng sau đoạn mã này?"
+    "subTitle": "// Một vài điều về tôi và hành trình phát triển"
   },
   "projects": {
     "title": "Dự án nổi bật",
@@ -35,7 +35,7 @@
   },
   "skills": {
     "title": "Kỹ năng & Công nghệ",
-    "subTitle": "// Kho vũ khí kỹ thuật của tôi"
+    "subTitle": "// Kỹ năng kỹ thuật và công cụ phát triển"
   },
   "blog": {
     "title": "Blog",

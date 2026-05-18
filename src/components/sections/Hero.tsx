@@ -101,6 +101,9 @@ export default function Hero() {
                 <p className="pl-6">
                   location: <span className="text-emerald-600 dark:text-emerald-400">"{profile?.location}"</span>,
                 </p>
+                <p className="pl-6">
+                  experience: <span className="text-emerald-600 dark:text-emerald-400">"{profile?.experience}"</span>,
+                </p>
                  <p className="pl-6">
                   skills: [
                     {profile?.skills?.map((skill, index) => (
@@ -111,11 +114,9 @@ export default function Hero() {
                         {index !== (profile?.skills?.length - 1) && ", "}
                       </span>
                     ))}
-                    ],
+                    ]
                 </p>
-                <p className="pl-6">
-                  passion: <span className="text-emerald-600 dark:text-emerald-400">"{profile?.passion}"</span>
-                </p>
+                
                 <p>{'}'}</p>
               </div>
             </div>
